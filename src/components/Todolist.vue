@@ -15,36 +15,8 @@
             <!-- ul.todo_list -->
             <ul class="todo_list">
                 <li class="todo_list_tit"><p>할 일</p></li>
-
-
-
-                <li class="del_btn">
-                    <p>
-                        <input type="checkbox" name="check1" value="">JS 공부하기
-                    </p>
-                    <ul class="todo_list_btn">
-                        <li><button>수 정</button></li>
-                        <li><button>삭 제</button></li>
-                    </ul>
-                </li>
-
-
-
-                <li>
-                    <p><input type="checkbox" name="check2" value="">웹 알아보기</p>
-                    <p><span></span></p>
-                </li>
-                <li>
-                    <p><input type="checkbox" name="check3" value="">책 읽기</p>
-                    <p><span></span></p>
-                </li>
-                <li>
-                    <p><input type="checkbox" name="check4" value="">거북이한테 전화하기</p>
-                    <p><span></span></p>
-                </li>
-                <li>
-                    <p><input type="checkbox" name="check5" value="">유리랑 소꿉놀이하기</p>
-                    <p><span></span></p>
+                <li class="del_btn" v-for="(item, idx) in todolist" :key="idx">
+                    <p><input type="checkbox" name="check1" value="">{{item.todo}}</p>
                 </li>
             </ul>
             <!--// ul.todo_list -->
@@ -60,7 +32,13 @@ export default {
   name: 'Todolist',
   data: function() {
 	  return{
-			
+			todolist: [
+				{todo: "Vue.js 공부하기"},
+				{todo: "근무상황부 작성하기"},
+				{todo: "독서하기 - 독후 과제 작성하기"},
+				{todo: "아이와 놀아주기"},
+				{todo: "서피스 펜 최저가 찾기"},
+			],
 	  }
   },
 }
