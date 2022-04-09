@@ -2,12 +2,14 @@
   <div id="app">
     <!-- <Calc /> -->
     <!-- <HelloWorld :prop="hello" @hello="childCall"/> -->
+		<Header />
 		<Todolist />
   </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header.vue'
 import Todolist from './components/Todolist.vue'
 // import Calc from './components/Calc.vue'
 
@@ -15,6 +17,7 @@ export default {
   name: 'App',
   components: {
     // HelloWorld,
+		Header,
 		Todolist,
 		// Calc,
   },
@@ -39,7 +42,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0;
 	/* display: flex;
 	justify-content: center; */
 }
