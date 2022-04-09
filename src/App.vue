@@ -4,6 +4,7 @@
     <!-- <HelloWorld :prop="hello" @hello="childCall"/> -->
 		<Header />
 		<Todolist />
+		<Footer />
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 // import HelloWorld from './components/HelloWorld.vue'
 import Header from './components/Header.vue'
 import Todolist from './components/Todolist.vue'
+import Footer from './components/Footer.vue'
 // import Calc from './components/Calc.vue'
 
 export default {
@@ -19,6 +21,7 @@ export default {
     // HelloWorld,
 		Header,
 		Todolist,
+		Footer,
 		// Calc,
   },
 	data: function(){
