@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <!-- <Calc /> -->
+    <!-- <HelloWorld :prop="hello" @hello="childCall"/> -->
 		<Header />
 		<Todolist />
 		<Footer />
@@ -7,17 +9,32 @@
 </template>
 
 <script>
+// import HelloWorld from './components/HelloWorld.vue'
 import Header from './components/Header.vue'
 import Todolist from './components/Todolist.vue'
 import Footer from './components/Footer.vue'
+// import Calc from './components/Calc.vue'
 
 export default {
   name: 'App',
   components: {
+    // HelloWorld,
 		Header,
 		Todolist,
 		Footer,
+		// Calc,
   },
+	data: function(){
+		return{
+			hello:"a",
+		}
+	},
+	methods: {
+		childCall(val){
+			this.hello = val;
+			console.log(val);
+		}
+	}
 }
 </script>
 
@@ -29,5 +46,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 0;
+	/* display: flex;
+	justify-content: center; */
 }
 </style>

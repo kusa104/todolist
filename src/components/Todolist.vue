@@ -1,21 +1,9 @@
 <template>
 	<div>
-		<div class="black-bg" v-if="modifyWindow">
-			<main class="todo">
-				<div class="container">
-					<ul class="list_add">
-						<li class="list_add_tit"><p>수정 하기</p></li>
-						<li><p><input type="text" v-model="modifyInfo.todo">&nbsp;<input type="date" v-model="modifyInfo.deadline"></p></li>
-						<button class="button1" @click="modifyTodo(modifyIdx)">수 정</button>&nbsp;&nbsp;<button class="button1" @click="modifyWindow=false">닫 기</button>
-					</ul>
-				</div>
-			</main>
-		</div>
-		
+		<TodoModify :modifyInfo="modifyInfo" @modifyTodo="modifyTodo" />
 		<TodoInput @addTodo="addTodo" />
 		<main class="todo">
 			<div class="container">
-				<!-- ul.todo_list -->
 				<ul class="todo_list">
 					<li class="todo_list_tit"><p>할 일</p></li>
 					<li class="todo_list_info"><p> {{remaining}} / {{todolist.length}} 건 완료 </p>&nbsp;&nbsp;&nbsp;<button class="button2" @click="cleanTodo">완료목록삭제</button></li>
@@ -27,29 +15,31 @@
 						</ul>
 					</li>
 				</ul>
-				<!--// ul.todo_list -->
 			</div>
 		</main>
-		<!--// main.todo -->
 	</div>
 </template>
 
 <script>
+import TodoModify from './TodoModify.vue'
 import TodoInput from './TodoInput.vue'
 	
 export default {
   name: 'Todolist',
   components: {
+		TodoModify,
     TodoInput,
   },
   data: function() {
 	  return{
-			modifyWindow: false,
-			modifyIdx: -1,
-			modifyInfo: {done: false, todo: '', deadline: ''},
+			modifyInfo: {
+				window: false,
+				idx: -1,
+				item: {done: false, todo: '', deadline: ''},
+			},
 			todolist: [
 				{done: false, todo: "Vue.js 공부하기", deadline: '2022-04-09'},
-				{done: false, todo: "근무상황부 작성하기", deadline: '2022-04-20'},
+				{done: false, todo: "근무상황부 작성하기", deadline: '2022-04-10'},
 				{done: false, todo: "독서하기 - 독후 과제 작성하기", deadline: '2022-04-20'},
 				{done: false, todo: "아이와 놀아주기", deadline: '2022-04-20'},
 				{done: false, todo: "서피스 펜 최저가 찾기", deadline: '2022-04-20'},
@@ -70,22 +60,21 @@ export default {
 		subTodo(idx){
 			if(confirm('삭제하시겠습니까?')){
 				this.todolist.splice(idx, 1);
-				alet('삭제하였습니다.')
 			}
 		},
 		modifyWindowOpen(idx){
-			this.modifyWindow = true;
-			this.modifyIdx = idx;
-			this.modifyInfo = JSON.parse(JSON.stringify(this.todolist[this.modifyIdx]));
+			this.modifyInfo.window = true;
+			this.modifyInfo.idx = idx;
+			this.modifyInfo.item = JSON.parse(JSON.stringify(this.todolist[idx]));
+			console.log(this.modifyInfo);
 		},
-		modifyTodo(idx){
+		modifyTodo(modInfo){
 			if(confirm('수정하시겠습니까?')){
-				this.todolist[this.modifyIdx].done = this.modifyInfo.done;
-				this.todolist[this.modifyIdx].todo = this.modifyInfo.todo;
-				this.todolist[this.modifyIdx].deadline = this.modifyInfo.deadline;
-				alert('수정하였습니다.')
+				this.todolist[modInfo.idx].done = modInfo.item.done;
+				this.todolist[modInfo.idx].todo =  modInfo.item.todo;
+				this.todolist[modInfo.idx].deadline =  modInfo.item.deadline;
 			}
-			this.modifyWindow = false;
+			this.modifyInfo.window = false;
 		},
 		cleanTodo(){
 			this.todolist = this.todolist.filter(function(item){
@@ -95,7 +84,7 @@ export default {
 		chkDeadline(idx){
 			const today = new Date();
 			const todayString = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2)+ '-' + ('0' + today.getDate()).slice(-2);
-			return this.todolist[idx].deadline == todayString && !this.todolist[idx].done;
+			return this.todolist[idx].deadline <= todayString && !this.todolist[idx].done;
 		},
 	},
 }
