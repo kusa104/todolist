@@ -67,7 +67,6 @@ header .header article ul li {
 header .header article ul li:nth-of-type(2) {
   cursor: none;
 }
-
 main {
   /* padding: 30px; */
   width: 100%;
@@ -167,6 +166,13 @@ main h1 {
   box-sizing: border-box;
   width: 100%;
   padding: 10px 0;
+}
+.todo_list .todo_list_info p {
+  text-align: right;
+	font-weight: bold;
+	font-size: 14px;
+	color: darkgray;
+  width: 100%;
 }
 .todo_list > li {
   display: flex;
